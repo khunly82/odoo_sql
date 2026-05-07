@@ -21,15 +21,23 @@ SELECT
     @(freight - lag(freight) OVER (partition by customer_id ORDER BY order_date))
 FROM orders;
 
+-- WITH HAVING
+EXPLAIN ANALYSE
 SELECT
     order_id,
     sum(quantity)
 FROM order_details
 GROUP BY order_id
--- don't do this it's better to filter before
-HAVING order_id BETWEEN 10480 AND 10500
---HAVING sum(quantity) > 10
+HAVING order_id BETWEEN 10480 AND 10500;
 
+-- WITH WHERE
+EXPLAIN ANALYSE
+SELECT
+    order_id,
+    sum(quantity)
+FROM order_details
+WHERE order_id BETWEEN 10480 AND 10500
+GROUP BY order_id;
 
 SELECT
     date_part('year', order_date),
@@ -43,6 +51,7 @@ GROUP BY
     case
         when date_part('month', order_date) <= 6 THEN 'first semester'
         else 'second semester'
-    end
+    end;
+
 
 

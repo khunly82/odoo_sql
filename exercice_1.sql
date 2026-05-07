@@ -75,12 +75,12 @@ SELECT
         WHEN category_id IN (1,2) THEN 0.9 * unit_price
         ELSE 0.95 * unit_price
     END AS sales_price
-FROM products
+FROM products;
 
 -- Postal Code Patterns:
 -- List all customers from the Customers table
 -- whose PostalCode starts with a digit between 0 and 5.
 SELECT *
 FROM customers
-WHERE postal_code ~ '^[0-5]'
+WHERE postal_code ~ '^[0-5]';
 
