@@ -20,3 +20,29 @@ SELECT
     sum(freight) OVER (PARTITION BY customer_id ORDER BY order_date),
     @(freight - lag(freight) OVER (partition by customer_id ORDER BY order_date))
 FROM orders;
+
+SELECT
+    order_id,
+    sum(quantity)
+FROM order_details
+GROUP BY order_id
+-- don't do this it's better to filter before
+HAVING order_id BETWEEN 10480 AND 10500
+--HAVING sum(quantity) > 10
+
+
+SELECT
+    date_part('year', order_date),
+    case
+        when date_part('month', order_date) <= 6 THEN 'first semester'
+        else 'second semester' end semester,
+    avg(freight)
+FROM orders
+GROUP BY
+    date_part('year', order_date),
+    case
+        when date_part('month', order_date) <= 6 THEN 'first semester'
+        else 'second semester'
+    end
+
+
