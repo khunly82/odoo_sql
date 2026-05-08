@@ -55,12 +55,12 @@ from order_details;
 -- qui classe les produits du plus cher au moins
 -- cher à l'intérieur de chaque catégorie.
 
-SELECT
+select
     category_id,
     product_name,
     unit_price,
     rank() over (partition by category_id order by unit_price) as rank
-FROM products;
+from products;
 
 -- 10. Délai entre deux commandes
 -- Pour chaque client, affichez l'ID de la commande,
@@ -92,4 +92,10 @@ from (
     join order_details od on od.product_id = p.product_id
     group by product_name, category_name
     order by category_name
-) sub where rank < 4
+) sub where rank < 4;
+
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;
+
+SELECT *
+FROM products
+WHERE metaphone(product_name, 3) = metaphone('ser rodnis', 3)
