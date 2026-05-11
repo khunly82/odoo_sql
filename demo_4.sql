@@ -72,5 +72,3 @@ WITH recursive pokemon_tree AS (
 SELECT * FROM pokemon_tree;
 
 
-
-
