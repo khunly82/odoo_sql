@@ -144,5 +144,5 @@ WITH total_sales_per_month AS (
     ORDER BY year, month
 ) SELECT
       *,
-      (-1 + (total / LAG(total) OVER (ORDER BY year, month))) * 100 AS growth
+      (-1 + (total / LAG(total) OVER ())) * 100 AS growth
 FROM total_sales_per_month;
